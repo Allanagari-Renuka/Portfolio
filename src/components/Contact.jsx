@@ -17,11 +17,6 @@ const Contact = () => {
 // const handleSubmit = async (e) => {
 //   e.preventDefault();
 //   try {
-//     // const response = await fetch('http://localhost:5000/api/contact', {
-//     //   method: 'POST',
-//     //   headers: { 'Content-Type': 'application/json' },
-//     //   body: JSON.stringify(formData)
-//     // });
 //     const response = await fetch('https://your-backend.onrender.com/api/contact', {
 //       method: 'POST',
 //       headers: { 'Content-Type': 'application/json' },
@@ -36,18 +31,20 @@ const Contact = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const response = await fetch('https://your-backend.onrender.com/api/contact', {
+    const response = await fetch('https://formspree.io/f/xanjpbjl', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
-    const data = await response.json();
-    alert(data.message);
+    if (response.ok) {
+      alert('Message sent successfully!');
+    } else {
+      alert('Failed to send message.');
+    }
   } catch (err) {
     alert('Failed to send message.');
   }
 };
-
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6" />,
