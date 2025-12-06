@@ -1,32 +1,32 @@
 import React from 'react';
-import { ExternalLink, Github, Code, Database, Brain } from 'lucide-react';
+import { ExternalLink, Github, Code, Database, Brain, Hand } from 'lucide-react';
 
 const Projects = () => {
   const projects = [
     {
       title: "Thyroid Diagnosis System",
       description: "Deep learning-based diagnostic system for thyroid disease prediction using patient lab results. Implements multiple ML algorithms with high accuracy rates for early detection.",
-      tech: ["React.js", "Node.js","MongoDB","Python", "Flask", "CNN", "RNN", "DCS"],
+      tech: ["React.js", "Node.js", "MongoDB", "Python", "Flask", "CNN", "RNN", "DCS"],
       github: "https://github.com/Allanagari-Renuka/Thyroid-Diagnosis",
-      demo: "#",
+      demo: "https://diagnosis-of-a-thyroid-using-cnn-and-rnn-f7ku.onrender.com/",
       icon: <Brain className="h-6 w-6" />,
       color: "from-teal-500 to-teal-600"
     },
     {
-      title: "Flipkart Clone using MERN Stack",
-      description: "A comprehensive e-commerce platform built with MongoDB, Express.js, React.js, and Node.js. Features include user authentication, product catalog, shopping cart, payment integration, and order management.",
-      tech: ["React.js", "Node.js", "MongoDB", "Express.js","Flask API"],
-      github: "https://github.com/Allanagari-Renuka/Flipkart-Clone-using-Mern-Stack",
-      demo: "#",
-      icon: <Code className="h-6 w-6" />,
-      color: "from-blue-500 to-blue-600"
+      title: "SignSpeak AI - Sign Language Recognition",
+      description: "Real-time American Sign Language recognition system using CNN-LSTM deep learning architecture. Processes video at 30 FPS with instant gesture translation to text and speech, promoting accessibility and inclusion for the Deaf community.",
+      tech: ["React.js", "Python", "CNN", "LSTM", "OpenCV", "Computer Vision", "Flask", "JavaScript", "Tailwind CSS"],
+      github: "https://github.com/Allanagari-Renuka/Sign-Language-Recognition",
+      demo: "https://sign-language-recognition-1-ncse.onrender.com/",
+      icon: <Hand className="h-6 w-6" />,
+      color: "from-purple-500 to-pink-600"
     },
     {
       title: "Restaurant Menu Page",
       description: "Interactive restaurant menu application with modern UI/UX design. Features dynamic menu filtering, item search, responsive design, and smooth animations for enhanced user experience.",
       tech: ["HTML", "CSS3", "JavaScript", "Responsive Design",],
       github: "https://github.com/Allanagari-Renuka/Restaurant-Menu-Pagep",
-      demo: "#",
+      demo: "https://recipie-gold.vercel.app/",
       icon: <Database className="h-6 w-6" />,
       color: "from-orange-500 to-orange-600"
     }
