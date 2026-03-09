@@ -79,7 +79,7 @@ const About = () => {
                   <p className="text-xl text-blue-400 font-semibold">Ango Digital Technologies</p>
                 </div>
                 <div className="text-gray-300 font-medium mt-2 md:mt-0">
-                  July 2025 - Present
+                  July 2025 - February 2026
                 </div>
               </div>
               <ul className="space-y-3 text-gray-300">
