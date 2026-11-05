@@ -9,7 +9,7 @@ export default {
     extend: {
       colors: {
         cream: {
-          DEFAULT: 'var(--bg-cream, #F7F7F2)',
+          DEFAULT: '#F7F7F2',
           50: '#FDFBF7',
           100: '#FAF8F4',
           200: '#F4F0E7',
@@ -17,7 +17,7 @@ export default {
           subtle: '#FAF9F5',
         },
         coral: {
-          DEFAULT: 'var(--accent-coral, #F15A35)',
+          DEFAULT: '#F15A35',
           hover: '#DF4B26',
           active: '#C83A16',
           light: '#FDF0EC',
@@ -25,20 +25,19 @@ export default {
           dark: '#C83A16',
         },
         charcoal: {
-          DEFAULT: 'var(--text-charcoal, #222222)',
+          DEFAULT: '#222222',
           muted: '#5F5E5A', // Refined for WCAG AA (>= 4.5:1 on #F7F7F2)
           light: '#7E7D78',
           subtle: '#9A9891',
         },
         pale: {
-          DEFAULT: 'var(--border-pale, #EAE6DC)',
+          DEFAULT: '#EAE6DC',
           light: '#F2EFE8',
           dark: '#D8D4C8',
         },
       },
       fontFamily: {
         sans: [
-          'var(--font-sans)',
           'Plus Jakarta Sans',
           'Outfit',
           'Inter',
@@ -47,7 +46,6 @@ export default {
           'sans-serif',
         ],
         handwriting: [
-          'var(--font-handwriting)',
           'Caveat',
           'Patrick Hand',
           'Kalam',

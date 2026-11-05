@@ -16,64 +16,69 @@ import { majorProjects, personalProjects } from '@/data/projects';
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-cream text-charcoal font-sans selection:bg-coral selection:text-white">
-      {/* 0. Cute Welcome Preloader (Opening Frame of Reference Video) */}
+      {/* 0. Cute Welcome Preloader */}
       <WelcomePreloader />
 
-      {/* 1. Modern Top Navigation (Matches Video Header) */}
+      {/* 1. Modern Top Navigation */}
       <ModernNav />
 
-      <main>
-        {/* 2. Signature 3D Hero with Floating Cards & Parallax Profile (Video Frame 1) */}
+      {/* Main Landmark with Skip-Target ID */}
+      <main id="main-content">
+        {/* 2. Signature 3D Hero with Floating Cards & Parallax Profile */}
         <HeroSection />
 
-        {/* 3. Professional Experience (Kept First as Requested — Video Frame 3 "The story so far") */}
+        {/* 3. Professional Experience */}
         <ExperienceSection />
 
-        {/* 4. Projects (3 Major Flagships + 8 Personal Deployments — Video Frame 2 "Projects I've built") */}
+        {/* 4. Projects (3 Major Flagships + 8 Personal Deployments) */}
         <ProjectsSection />
 
-        {/* 5. Academic Education (Mentioned After Projects as Requested) */}
+        {/* 5. Academic Education */}
         <EducationSection />
 
-        {/* 6. Things I'm Good At with Interactive Shuffle (Video Frame 4 "Things I'm good at") */}
+        {/* 6. Things I'm Good At — Core Tech Stack */}
         <SkillsSection />
 
-        {/* 7. Certificate Wall (Mentioned After Education as Requested — Video Frame 5) */}
+        {/* 7. Certificate Wall */}
         <CertificatesSection />
 
-        {/* 8. Bold Orange "Let's be friends!" Contact Details Banner (Video Frame 6) */}
+        {/* 8. Contact Details Banner & Footer */}
         <ContactSection />
       </main>
 
-      {/* Semantic SEO Profile Data for Search Engines & Screen Readers */}
-      <div className="sr-only">
-        <h1>{profile.name} — {profile.role}</h1>
+      {/* Semantic Profile Data for Screen Readers (Subordinate to main page h1) */}
+      <aside className="sr-only" aria-label="Portfolio Summary">
+        <h2>{profile.name} — {profile.role}</h2>
         <p>{profile.tagline}</p>
         <p>{profile.summary}</p>
         <p>Education: {profile.degree}</p>
-        <h2>Major Projects</h2>
+        <h3>Major Projects</h3>
         <ul>
           {majorProjects.map((p) => (
             <li key={p.id}>
-              <h3>{p.title}</h3>
+              <h4>{p.title}</h4>
               <p>{p.description}</p>
               {p.playStoreCustomerUrl && <a href={p.playStoreCustomerUrl}>Skipp Customer App on Google Play</a>}
               {p.playStoreRestaurantUrl && <a href={p.playStoreRestaurantUrl}>Skipp Restaurant App on Google Play</a>}
-              {p.demoUrl && <a href={p.demoUrl}>{p.title} Live Demo</a>}
+              {p.demoUrl && (
+                <a href={p.demoUrl}>
+                  {p.id === 'skipp' ? `${p.title} Google Play` : `${p.title} Live Demo`}
+                </a>
+              )}
             </li>
           ))}
         </ul>
-        <h2>Personal Projects</h2>
+        <h3>Personal Projects</h3>
         <ul>
           {personalProjects.map((p) => (
             <li key={p.id}>
-              <h3>{p.title}</h3>
+              <h4>{p.title}</h4>
               <p>{p.description}</p>
               {p.demoUrl && <a href={p.demoUrl}>{p.title} Live Demo</a>}
             </li>
           ))}
         </ul>
-      </div>
+      </aside>
     </div>
   );
 }

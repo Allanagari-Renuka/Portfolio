@@ -11,32 +11,31 @@
     --accent-coral: #F15A35;
     --accent-coral-hover: #DF4B26;
     --border-pale: #EAE6DC;
-    --border-pale-subtle: rgba(234, 230, 220, 0.7);
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--bg-cream);
-    color: var(--text-charcoal);
+    background-color: #F7F7F2;
+    color: #222222;
   }
 
   body {
-    background-color: var(--bg-cream);
-    color: var(--text-charcoal);
-    font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #F7F7F2;
+    color: #222222;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   ::selection {
-    background-color: var(--accent-coral);
+    background-color: #F15A35;
     color: #FFFFFF;
   }
 
   /* Universal focus visible outline */
   :focus-visible {
-    outline: 2px solid var(--accent-coral);
+    outline: 2px solid #F15A35;
     outline-offset: 2px;
   }
 
@@ -58,7 +57,7 @@
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-full bg-white hover:bg-cream-200 border border-charcoal/20 text-charcoal font-sans text-sm font-semibold tracking-wide transition-all duration-200 shadow-soft-sm hover:-translate-y-0.5 active:translate-y-0 focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-full bg-white hover:bg-cream-100 border border-pale text-charcoal font-sans text-sm font-semibold tracking-wide transition-all duration-200 shadow-soft-sm hover:-translate-y-0.5 active:translate-y-0 focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2;
   }
 
   .btn-ghost {
@@ -82,7 +81,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-cream);
+  background: #F7F7F2;
 }
 
 ::-webkit-scrollbar-thumb {

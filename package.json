@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node -e \"const fs=require('fs'); ['chunks/app','css','media'].forEach(d=>fs.mkdirSync('.next/static/'+d, {recursive:true})); fs.mkdirSync('.next/server', {recursive:true});\" && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check:images": "node scripts/check-images.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
@@ -26,11 +27,14 @@
     "three": "^0.186.1"
   },
   "devDependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
     "@types/node": "^22.14.0",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.18",
+    "playwright": "^1.64.1",
     "postcss": "^8.4.35",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.4"
   }

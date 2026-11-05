@@ -1,8 +1,10 @@
 'use client';
 
-import React from 'react';
-import { FileText, ExternalLink, Check, Award, Cloud, Database, Code, Terminal, Cpu } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FileText, ExternalLink, Check, Award, Cloud, Database, Code, Terminal, Cpu, Sparkles } from 'lucide-react';
 import WavyUnderline from '../ui/WavyUnderline';
+import TiltCard from '../ui/TiltCard';
 
 const certificateWall = [
   {
@@ -58,7 +60,7 @@ const certificateWall = [
     tag: 'Core Python & Structures',
   },
   {
-    title: 'B.Tech CSE (AI) — 88.0% Academic Distinction',
+    title: 'B.Tech CSE (AI) — Academic Distinction',
     issuer: 'G. PULLAIAH COLLEGE OF ENGINEERING',
     icon: Award,
     color: '#F15A35',
@@ -67,88 +69,121 @@ const certificateWall = [
 ];
 
 export default function CertificatesSection() {
+  const [hoveredCert, setHoveredCert] = useState<string | null>(null);
+
   return (
-    <section id="certificates" className="py-20 sm:py-28 bg-cream border-t border-pale/70 overflow-hidden relative">
+    <section id="certificates" className="py-24 sm:py-32 bg-cream border-t border-pale overflow-hidden relative scroll-mt-24">
+      {/* 3D background glowing orb */}
+      <div className="absolute top-1/3 left-10 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Pill Eyebrow */}
-        <div className="flex justify-start mb-3">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-pale text-xs font-semibold text-charcoal/80 shadow-soft-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-start mb-3"
+        >
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-pale text-xs font-semibold text-charcoal/80 shadow-soft-xs">
             <Award className="w-3.5 h-3.5 text-coral" />
             <span>Verified Credentials</span>
           </span>
-        </div>
+        </motion.div>
 
         {/* Headline */}
-        <div className="mb-14 sm:mb-18 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-14 sm:mb-18 flex flex-col sm:flex-row sm:items-end justify-between gap-4"
+        >
           <div>
             <h2 className="text-3xl sm:text-5xl font-black text-charcoal tracking-tight font-sans">
               Certificate <WavyUnderline>wall</WavyUnderline>
             </h2>
-            <p className="mt-3 text-base text-charcoal/70 max-w-xl">
+            <p className="mt-3 text-base text-charcoal/70 max-w-[65ch]">
               Industry credentials and verified certifications across cloud computing, full-stack development, algorithms, and applied machine learning.
             </p>
           </div>
-          <div className="font-handwriting text-xl text-coral font-bold -rotate-1">
-            8 verified credentials ✦
-          </div>
-        </div>
+        </motion.div>
 
-        {/* Certificate Wall Grid (Matches frame 20 of reference video) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {certificateWall.map((cert) => {
+        {/* Certificate Wall Grid with 3D Depth & Hover Effects */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          {certificateWall.map((cert, idx) => {
             const Icon = cert.icon;
+            const isHovered = hoveredCert === cert.title;
+
             return (
-              <div
+              <motion.div
                 key={cert.title}
-                className="p-6 rounded-2xl bg-white border border-pale shadow-soft-sm hover:shadow-soft-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between space-y-4 group"
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, delay: idx * 0.05 }}
+                className="h-full flex"
               >
-                {/* Top: Icon Logo + Verified Checkmark Badge */}
-                <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-cream flex items-center justify-center border border-pale group-hover:scale-110 transition-transform">
-                    <Icon className="w-5 h-5" style={{ color: cert.color }} />
-                  </div>
+                <TiltCard maxTilt={4} className="w-full">
+                  <div
+                    onMouseEnter={() => setHoveredCert(cert.title)}
+                    onMouseLeave={() => setHoveredCert(null)}
+                    className="portfolio-card p-6 flex flex-col justify-between space-y-4 h-full group bg-white border border-pale rounded-card shadow-soft-sm hover:shadow-soft-lg hover:border-coral/40 transition-all duration-300"
+                  >
+                    {/* Top: Icon Logo + Verified Checkmark Badge */}
+                    <div className="flex items-center justify-between">
+                      <div
+                        className={`w-11 h-11 rounded-xl bg-cream-50 flex items-center justify-center border border-pale transition-transform duration-300 ${
+                          isHovered ? 'scale-110 shadow-soft-xs' : ''
+                        }`}
+                      >
+                        <Icon className="w-5 h-5" style={{ color: cert.color }} />
+                      </div>
 
-                  {/* Orange Verified Checkmark Badge */}
-                  <div className="w-6 h-6 rounded-full bg-coral/15 flex items-center justify-center text-coral">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  </div>
-                </div>
+                      {/* Orange Verified Checkmark Badge */}
+                      <div className="w-6 h-6 rounded-full bg-coral/15 flex items-center justify-center text-coral" title="Verified Credential">
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      </div>
+                    </div>
 
-                {/* Middle: Title & Issuer */}
-                <div className="space-y-1.5 flex-1">
-                  <div className="text-[10px] font-bold text-coral uppercase tracking-wider">
-                    {cert.tag}
-                  </div>
-                  <h3 className="text-sm font-bold text-charcoal font-sans leading-snug group-hover:text-coral transition-colors">
-                    {cert.title}
-                  </h3>
-                  <div className="text-[11px] font-semibold text-charcoal/60 uppercase tracking-wider pt-0.5">
-                    {cert.issuer}
-                  </div>
-                </div>
+                    {/* Middle: Title & Issuer */}
+                    <div className="space-y-1.5 flex-1">
+                      <div className="text-[10px] font-bold text-coral uppercase tracking-wider">
+                        {cert.tag}
+                      </div>
+                      <h3 className="text-sm font-bold text-charcoal font-sans leading-snug group-hover:text-coral transition-colors">
+                        {cert.title}
+                      </h3>
+                      <div className="text-[11px] font-semibold text-charcoal/60 uppercase tracking-wider pt-0.5">
+                        {cert.issuer}
+                      </div>
+                    </div>
 
-                {/* Bottom: Verified Link */}
-                <div className="pt-2 border-t border-pale/60">
-                  {cert.fileUrl ? (
-                    <a
-                      href={cert.fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:text-coral-hover transition-colors"
-                    >
-                      <FileText className="w-3.5 h-3.5" />
-                      <span>View credential (PDF)</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  ) : (
-                    <span className="text-xs font-medium text-charcoal/50 flex items-center gap-1">
-                      <Check className="w-3 h-3 text-coral" />
-                      <span>Verified credential</span>
-                    </span>
-                  )}
-                </div>
-              </div>
+                    {/* Bottom: Verified Link */}
+                    <div className="pt-2 border-t border-pale/60 mt-auto">
+                      {cert.fileUrl ? (
+                        <a
+                          href={cert.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:text-coral-hover transition-colors min-h-[44px] py-1"
+                          aria-label={`View PDF credential for ${cert.title}`}
+                        >
+                          <FileText className="w-3.5 h-3.5" />
+                          <span>View credential (PDF)</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-xs font-medium text-charcoal/60 min-h-[44px] py-1">
+                          <Check className="w-3 h-3 text-coral" />
+                          <span>Verified credential</span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </TiltCard>
+              </motion.div>
             );
           })}
         </div>

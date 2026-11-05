@@ -2,14 +2,21 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { ArrowRight, Mail, Smartphone, Brain, Code2, Award, Terminal, Sparkles } from 'lucide-react';
+import { ArrowRight, Mail, Briefcase, Smartphone } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import WavyUnderline from '../ui/WavyUnderline';
+import TiltCard from '../ui/TiltCard';
 import { profile } from '@/data/profile';
 
 export default function HeroSection() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0, normX: 0, normY: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+
+  // Scroll-linked parallax
+  const { scrollY } = useScroll();
+  const portraitY = useTransform(scrollY, [0, 600], [0, 40]);
+  const glowY = useTransform(scrollY, [0, 600], [0, 30]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -19,8 +26,8 @@ export default function HeroSection() {
       const y = e.clientY - rect.top;
 
       // Normalized coordinates from -1 to 1 based on center of hero
-      const normX = Math.max(-1, Math.min(1, ((x / rect.width) * 2) - 1));
-      const normY = Math.max(-1, Math.min(1, ((y / rect.height) * 2) - 1));
+      const normX = Math.max(-1, Math.min(1, (x / rect.width) * 2 - 1));
+      const normY = Math.max(-1, Math.min(1, (y / rect.height) * 2 - 1));
 
       setMousePos({ x, y, normX, normY });
     };
@@ -29,284 +36,246 @@ export default function HeroSection() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // 3D rotation values
-  const tiltX = -mousePos.normY * 12;
-  const tiltY = mousePos.normX * 16;
-  const eyeShiftX = mousePos.normX * 14;
-  const eyeShiftY = mousePos.normY * 10;
+  // Smooth subtle tilt values
+  const tiltX = -mousePos.normY * 4;
+  const tiltY = mousePos.normX * 5;
+  const shiftX = mousePos.normX * 8;
+  const shiftY = mousePos.normY * 6;
+
+  const skillChips = ['React', 'Node.js', 'Python', 'TensorFlow'];
 
   return (
     <section
       id="hero"
       ref={heroRef}
-      className="relative min-h-[92vh] flex flex-col justify-center pt-24 sm:pt-28 pb-16 sm:pb-20 bg-cream overflow-hidden"
+      className="relative min-h-[92vh] flex flex-col justify-center pt-36 sm:pt-44 lg:pt-48 pb-20 sm:pb-28 bg-cream overflow-hidden scroll-mt-28"
+      aria-label="Hero Introduction"
     >
-      {/* Soft ambient background radial lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-gradient-to-tr from-coral/10 via-peach/25 to-transparent rounded-full blur-3xl pointer-events-none" />
+      {/* Dynamic ambient radial background aura */}
+      <motion.div
+        className="absolute top-1/4 left-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-coral/10 via-peach-100/25 to-transparent rounded-full blur-3xl pointer-events-none transition-transform duration-700 ease-out"
+        style={{
+          y: glowY,
+          transform: `translate(calc(-50% + ${mousePos.normX * 25}px), calc(-50% + ${mousePos.normY * 15}px))`,
+        }}
+      />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center lg:items-start">
 
           {/* ============================================================== */}
-          {/* Left Column: Greeting, Name, Stats & CTAs (Exact match to video) */}
+          {/* Left Column: Greeting, Name, Role Tag, Intro, Skills, Stats & CTAs */}
           {/* ============================================================== */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-7 text-left">
 
-            {/* Handwritten Greeting (Matches frame 550) */}
-            <div className="flex items-center gap-2">
-              <span className="font-handwriting text-2xl sm:text-3xl text-charcoal/85">
+            {/* Handwritten Greeting */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center gap-2"
+            >
+              <span className="font-handwriting text-2xl sm:text-3xl text-charcoal/90">
                 Hi there, I&apos;m
               </span>
-              <span className="text-2xl animate-waving-hand inline-block origin-[70%_70%]">
+              <span className="text-2xl animate-waving-hand inline-block origin-[70%_70%]" aria-hidden="true">
                 👋
               </span>
-            </div>
+            </motion.div>
 
-            {/* Giant Name with Coral Curved Brush Underline (Matches frame 550) */}
-            <div>
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black text-charcoal tracking-tight leading-none font-sans">
+            {/* Full Name with "Renuka" as the primary featured heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-charcoal tracking-tight leading-[1.1] font-sans">
+                <span className="text-charcoal/80 font-bold block sm:inline text-3xl sm:text-5xl lg:text-6xl sm:mr-3">
+                  Allanagari
+                </span>
                 <WavyUnderline>Renuka</WavyUnderline>
               </h1>
-            </div>
+            </motion.div>
 
-            {/* Subtitle / Description (Matches frame 550) */}
-            <p className="text-base sm:text-lg md:text-xl text-charcoal/80 font-normal leading-relaxed max-w-xl">
-              <strong className="font-semibold text-charcoal">Full-stack developer</strong>{' '}
-              <span className="text-coral">✦</span> I build friendly, AI-powered web apps with React, Node.js and Python, from the first pixel to the last API call.
-            </p>
+            {/* Professional Title & Subtitle Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center flex-wrap gap-2 px-3.5 py-1.5 rounded-full bg-white border border-pale shadow-soft-xs text-xs sm:text-sm font-bold text-charcoal"
+            >
+              <span className="w-2 h-2 rounded-full bg-coral animate-pulse" />
+              <span className="text-coral font-black tracking-wide">Full-Stack Developer</span>
+              <span className="text-charcoal/30 hidden sm:inline">|</span>
+              <span className="text-charcoal/80 font-semibold">Building Real-World Products</span>
+            </motion.div>
 
-            {/* 3 Stat Counters in a Row (Matches frame 550) */}
-            <div className="flex flex-wrap items-center gap-8 sm:gap-12 pt-2 border-y border-pale/80 py-4 max-w-lg">
-              <div>
-                <div className="text-2xl sm:text-3xl font-black text-charcoal tracking-tight font-sans">
-                  3
+            {/* Professional Introduction Paragraph with Subtle Coral-Orange Emphasis */}
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              className="text-base sm:text-lg text-charcoal/85 font-normal leading-relaxed max-w-[65ch] text-pretty"
+            >
+              With <span className="font-semibold text-charcoal">1+ year of hands-on development experience</span>, I specialise in building <span className="font-medium text-coral">full-stack web applications</span>, <span className="font-medium text-coral">Android applications</span>, and <span className="font-medium text-coral">AI-powered solutions</span>. From shipping <span className="font-semibold text-charcoal">two apps on Google Play</span> to developing recruitment SaaS platforms, wholesale marketplaces, and real-time kitchen management systems, I enjoy building products that solve real business problems. My core technologies include <span className="font-semibold text-coral">React</span>, <span className="font-semibold text-coral">Node.js</span>, <span className="font-semibold text-coral">Python</span>, and <span className="font-semibold text-coral">TensorFlow</span>.
+            </motion.p>
+
+            {/* 4 Skill Chips */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-center gap-2 pt-0.5"
+            >
+              {skillChips.map((skill) => (
+                <span
+                  key={skill}
+                  className="inline-flex items-center px-3 py-1 rounded-lg bg-white border border-pale text-xs font-semibold text-charcoal shadow-soft-xs hover:border-coral/40 hover:text-coral transition-colors"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-coral mr-1.5" />
+                  {skill}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* Animated Verified Achievement Cards with 3D Tilt, Hover Glow & Pulse */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-w-xl pt-1"
+            >
+              {/* Experience Indicator Card */}
+              <TiltCard maxTilt={8} className="w-full">
+                <div className="group relative flex items-center gap-3.5 px-4 py-3.5 rounded-2xl bg-white border border-pale shadow-soft-xs hover:border-coral/50 hover:shadow-soft-md transition-all duration-300 cursor-default overflow-hidden">
+                  {/* Subtle hover gradient wash */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-coral/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                  {/* Animated Icon Container */}
+                  <div className="relative w-11 h-11 rounded-xl bg-coral/10 border border-coral/20 flex items-center justify-center text-coral shrink-0 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-coral group-hover:text-white transition-all duration-300 shadow-soft-xs">
+                    <Briefcase className="w-5 h-5 transition-transform duration-300 group-hover:scale-105" />
+                  </div>
+
+                  <div className="relative z-10 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base sm:text-base lg:text-lg font-black text-charcoal tracking-tight font-sans whitespace-nowrap group-hover:text-coral transition-colors duration-200">
+                        1+ Year Experience
+                      </span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" title="Active Experience" />
+                    </div>
+                    <div className="text-xs text-charcoal/65 font-medium mt-0.5 truncate">
+                      Web, Android &amp; AI Solutions
+                    </div>
+                  </div>
                 </div>
-                <div className="text-xs sm:text-sm text-charcoal/70 font-medium mt-0.5">
-                  AI products
-                </div>
-              </div>
+              </TiltCard>
 
-              <div className="w-px h-8 bg-pale hidden sm:block" />
+              {/* Secondary Achievement Indicator: Google Play Card */}
+              <TiltCard maxTilt={8} className="w-full">
+                <div className="group relative flex items-center gap-3.5 px-4 py-3.5 rounded-2xl bg-white border border-pale shadow-soft-xs hover:border-coral/50 hover:shadow-soft-md transition-all duration-300 cursor-default overflow-hidden">
+                  {/* Subtle hover gradient wash */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-coral/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-              <div>
-                <div className="text-2xl sm:text-3xl font-black text-charcoal tracking-tight font-sans">
-                  1,230+
-                </div>
-                <div className="text-xs sm:text-sm text-charcoal/70 font-medium mt-0.5">
-                  problems solved
-                </div>
-              </div>
+                  {/* Animated Icon Container */}
+                  <div className="relative w-11 h-11 rounded-xl bg-coral/10 border border-coral/20 flex items-center justify-center text-coral shrink-0 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-coral group-hover:text-white transition-all duration-300 shadow-soft-xs">
+                    <Smartphone className="w-5 h-5 transition-transform duration-300 group-hover:scale-105" />
+                  </div>
 
-              <div className="w-px h-8 bg-pale hidden sm:block" />
-
-              <div>
-                <div className="text-2xl sm:text-3xl font-black text-coral tracking-tight font-sans">
-                  8.8
+                  <div className="relative z-10 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base sm:text-base lg:text-lg font-black text-coral tracking-tight font-sans whitespace-nowrap group-hover:brightness-110 transition-all duration-200">
+                        2 Apps Published
+                      </span>
+                      <span className="w-2 h-2 rounded-full bg-coral animate-pulse shrink-0" title="Published Apps" />
+                    </div>
+                    <div className="text-xs text-charcoal/65 font-medium mt-0.5 truncate">
+                      On Google Play Store
+                    </div>
+                  </div>
                 </div>
-                <div className="text-xs sm:text-sm text-charcoal/70 font-medium mt-0.5">
-                  CGPA · Distinction
-                </div>
-              </div>
-            </div>
+              </TiltCard>
+            </motion.div>
 
-            {/* Two Action Buttons (Matches frame 550) */}
-            <div className="flex flex-wrap items-center gap-4 pt-1">
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-center gap-4 pt-1"
+            >
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-coral hover:bg-coral-hover text-white font-sans text-sm font-bold tracking-wide transition-all shadow-coral hover:-translate-y-0.5 active:translate-y-0"
+                className="btn-primary"
               >
                 <span>See my work</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 ml-2" />
               </a>
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-cream-200 border border-charcoal/20 text-charcoal font-sans text-sm font-semibold tracking-wide transition-all shadow-soft-sm hover:-translate-y-0.5"
+                className="btn-secondary"
               >
-                <Mail className="w-4 h-4 text-charcoal/70" />
+                <Mail className="w-4 h-4 mr-2 text-charcoal/70" />
                 <span>Message me</span>
               </a>
-            </div>
+            </motion.div>
 
           </div>
 
           {/* ============================================================== */}
-          {/* Right Column: 3D Portrait + Cursor Parallax + 3D Floating Cards */}
+          {/* Right Column: Clean, Crisp, Professional Portrait Cutout */}
+          {/* Positioned at the top, aligned equally with "Allanagari Renuka" */}
           {/* ============================================================== */}
-          <div className="lg:col-span-5 relative flex flex-col items-center justify-center">
-
-            {/* Handwritten Note with Curvy Arrow (Matches frame 550) */}
-            <div className="absolute -top-10 sm:-top-12 right-6 sm:right-12 z-30 pointer-events-none flex flex-col items-end">
-              <span className="font-handwriting text-lg sm:text-xl text-coral font-bold -rotate-6">
-                move your cursor,
-                <br />
-                I&apos;ll look at it!
-              </span>
-              <svg
-                className="w-8 h-8 text-coral -rotate-12 mt-0.5"
-                viewBox="0 0 40 40"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M10 5 C 18 12, 26 22, 28 32 M 28 32 L 20 30 M 28 32 L 30 22" />
-              </svg>
-            </div>
-
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 relative flex flex-col items-center justify-start lg:pt-12"
+          >
             {/* 3D Perspective Stage Container */}
             <div
-              className="relative w-72 sm:w-84 h-88 sm:h-[420px] flex items-end justify-center select-none"
+              className="relative w-80 sm:w-96 lg:w-[410px] h-[460px] sm:h-[500px] lg:h-[530px] flex items-start justify-center select-none"
               style={{ perspective: '1000px' }}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              {/* Organic Warm Peach Arch & Coral Blob Backdrop (Matches frame 550) */}
-              <div className="absolute inset-x-6 bottom-0 top-12 rounded-t-[140px] rounded-b-[40px] bg-gradient-to-b from-[#FCEAE3] via-[#FCE4DC] to-[#F7D8CE] border border-coral/10 shadow-soft" />
-
-              {/* Red/Coral Organic Accent Shape Behind Arch (Matches frame 550) */}
-              <div className="absolute top-16 -right-3 w-28 h-28 rounded-full bg-coral/20 blur-xl pointer-events-none" />
-
-              {/* Central 3D Portrait with Interactive Head/Eye Tilt Tracking */}
+              {/* Soft warm aura centered behind the head/shoulders */}
               <div
-                className="relative z-10 w-60 sm:w-72 h-80 sm:h-[380px] transition-transform duration-150 ease-out"
+                className="absolute top-0 w-72 sm:w-80 h-72 sm:h-80 rounded-full bg-gradient-to-tr from-coral/15 via-peach-100/20 to-transparent blur-3xl pointer-events-none transition-transform duration-300"
                 style={{
-                  transform: `translate3d(${eyeShiftX}px, ${eyeShiftY}px, 0px) rotateY(${tiltY}deg) rotateX(${tiltX}deg) ${
+                  transform: `scale(${isHovered ? 1.05 : 1}) translate3d(${shiftX * 0.3}px, ${shiftY * 0.3}px, 0)`,
+                }}
+              />
+
+              {/* Crisp, Professional Cutout Portrait (Solid blazer, top-aligned) */}
+              <motion.div
+                className="relative z-10 w-72 sm:w-84 lg:w-92 h-[440px] sm:h-[480px] lg:h-[510px] transition-transform duration-150 ease-out cursor-default"
+                style={{
+                  y: portraitY,
+                  transform: `translate3d(${shiftX}px, ${shiftY}px, 0px) rotateY(${tiltY}deg) rotateX(${tiltX}deg) ${
                     isHovered ? 'scale(1.02)' : 'scale(1)'
                   }`,
                   transformStyle: 'preserve-3d',
                 }}
               >
                 <Image
-                  src="/professional-portfolio.png"
-                  alt={profile.name}
+                  src="/renuka-cutout.png"
+                  alt={`${profile.name} — Full-Stack Developer`}
                   fill
                   priority
-                  className="object-cover object-top rounded-t-[130px] rounded-b-[36px] filter contrast-105 shadow-soft-lg"
+                  sizes="(max-width: 640px) 288px, (max-width: 1024px) 336px, 368px"
+                  className="object-contain object-top filter contrast-[1.02]"
                 />
+              </motion.div>
 
-                {/* Subtle Glassmorphic Name Tag at Portrait Base */}
-                <div
-                  className="absolute bottom-3 inset-x-4 py-1.5 px-3 rounded-xl bg-white/95 backdrop-blur-md border border-white/80 shadow-soft-sm flex items-center justify-between"
-                  style={{ transform: 'translateZ(25px)' }}
-                >
-                  <div>
-                    <div className="text-xs font-black text-charcoal font-sans leading-tight">
-                      Allanagari Renuka
-                    </div>
-                    <div className="text-[10px] font-bold text-coral uppercase tracking-wider">
-                      Full Stack &amp; AI
-                    </div>
-                  </div>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                </div>
-              </div>
-
-              {/* ============================================================== */}
-              {/* 3D FLOATING CARDS ORBITING IN SPATIAL DEPTH (Requested by user) */}
-              {/* ============================================================== */}
-
-              {/* Floating Card 1 (Top Left): Full-Stack Dev */}
+              {/* Clean Grounding Line beneath the blazer */}
               <div
-                className="absolute -top-3 -left-6 sm:-left-10 z-20 pointer-events-auto transition-transform duration-200"
-                style={{
-                  transform: `translate3d(${mousePos.normX * -14}px, ${mousePos.normY * -12}px, 50px)`,
-                  animation: 'float-slow 6s ease-in-out infinite',
-                }}
-              >
-                <div className="px-3.5 py-2 rounded-2xl bg-white/95 backdrop-blur-md border border-pale shadow-soft flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer">
-                  <div className="w-7 h-7 rounded-lg bg-coral/10 flex items-center justify-center text-coral">
-                    <Code2 className="w-4 h-4 stroke-[2.5]" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-black text-charcoal font-sans leading-tight">
-                      Full-Stack Dev
-                    </div>
-                    <div className="text-[9px] font-semibold text-charcoal/60">
-                      React · Node · Python
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Card 2 (Top Right): AI & Deep Learning */}
-              <div
-                className="absolute top-10 -right-6 sm:-right-10 z-20 pointer-events-auto transition-transform duration-200"
-                style={{
-                  transform: `translate3d(${mousePos.normX * -18}px, ${mousePos.normY * -15}px, 65px)`,
-                  animation: 'float-slow 5s ease-in-out infinite 1s',
-                }}
-              >
-                <div className="px-3.5 py-2 rounded-2xl bg-white/95 backdrop-blur-md border border-pale shadow-soft flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer">
-                  <div className="w-7 h-7 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-600">
-                    <Brain className="w-4 h-4 stroke-[2.5]" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-black text-charcoal font-sans leading-tight">
-                      AI &amp; Deep Learning
-                    </div>
-                    <div className="text-[9px] font-semibold text-charcoal/60">
-                      CNN · RNN · Vision
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Card 3 (Bottom Left): Skipp Live on Google Play */}
-              <div
-                className="absolute bottom-10 -left-8 sm:-left-12 z-20 pointer-events-auto transition-transform duration-200"
-                style={{
-                  transform: `translate3d(${mousePos.normX * -16}px, ${mousePos.normY * -14}px, 55px)`,
-                  animation: 'float-slow 7s ease-in-out infinite 0.5s',
-                }}
-              >
-                <div className="px-3.5 py-2.5 rounded-2xl bg-white/95 backdrop-blur-md border border-coral/30 shadow-coral flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer">
-                  <div className="w-7 h-7 rounded-lg bg-coral flex items-center justify-center text-white">
-                    <Smartphone className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <span className="text-[11px] font-black text-charcoal font-sans leading-tight">
-                        Skipp Apps
-                      </span>
-                      <span className="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-coral/10 text-coral">
-                        LIVE
-                      </span>
-                    </div>
-                    <div className="text-[9px] font-semibold text-charcoal/60">
-                      Google Play Store
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Card 4 (Bottom Right): 1,230+ DSA Solved */}
-              <div
-                className="absolute -bottom-3 -right-4 sm:-right-8 z-20 pointer-events-auto transition-transform duration-200"
-                style={{
-                  transform: `translate3d(${mousePos.normX * -12}px, ${mousePos.normY * -10}px, 45px)`,
-                  animation: 'float-slow 6.5s ease-in-out infinite 1.5s',
-                }}
-              >
-                <div className="px-3.5 py-2 rounded-2xl bg-white/95 backdrop-blur-md border border-pale shadow-soft flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer">
-                  <div className="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-600">
-                    <Terminal className="w-4 h-4 stroke-[2.5]" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-black text-charcoal font-sans leading-tight">
-                      1,230+ DSA Solved
-                    </div>
-                    <div className="text-[9px] font-semibold text-charcoal/60">
-                      Smart Coder Certified
-                    </div>
-                  </div>
-                </div>
-              </div>
+                className="absolute bottom-4 w-64 sm:w-72 h-px bg-gradient-to-r from-transparent via-pale/80 to-transparent pointer-events-none"
+              />
 
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
       </div>

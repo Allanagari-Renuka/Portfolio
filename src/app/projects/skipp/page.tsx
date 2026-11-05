@@ -79,11 +79,12 @@ export default function SkippDetailPage() {
     <div className="min-h-screen bg-cream text-charcoal py-12 sm:py-20 selection:bg-coral selection:text-white font-sans">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Back Link */}
+        {/* Back Link to Portfolio Projects */}
         <div className="mb-8">
           <Link
-            href="/#work"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-pale hover:border-coral text-charcoal text-xs font-semibold uppercase tracking-wider transition-all shadow-soft-sm group"
+            href="/#projects"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-pale hover:border-coral text-charcoal text-xs font-semibold uppercase tracking-wider transition-all shadow-soft-xs hover:-translate-y-0.5 group min-h-[44px]"
+            aria-label="Back to Portfolio Projects"
           >
             <ArrowLeft className="w-3.5 h-3.5 text-coral group-hover:-translate-x-1 transition-transform" />
             <span>Back to Portfolio</span>
@@ -91,9 +92,9 @@ export default function SkippDetailPage() {
         </div>
 
         {/* Hero header */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-pale shadow-soft-sm relative overflow-hidden">
+        <div className="p-8 sm:p-12 rounded-card bg-white border border-pale shadow-soft-sm relative overflow-hidden">
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className="px-3 py-1 rounded-full bg-cream-200 border border-pale text-xs font-semibold text-charcoal/80 uppercase tracking-wider">
+            <span className="px-3 py-1 rounded-full bg-cream-100 border border-pale text-xs font-semibold text-charcoal/80 uppercase tracking-wider">
               FLAGSHIP CASE STUDY
             </span>
             <span className="px-3 py-1 rounded-full bg-coral text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-coral">
@@ -116,7 +117,7 @@ export default function SkippDetailPage() {
               href={customerPlayStore}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-coral hover:bg-coral-hover text-white text-xs uppercase tracking-wider font-bold shadow-coral transition-all hover:scale-[1.01]"
+              className="flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-coral hover:bg-coral-hover text-white text-xs uppercase tracking-wider font-bold shadow-coral transition-all hover:scale-[1.01] min-h-[44px]"
             >
               <Smartphone className="w-5 h-5" />
               <div className="text-left">
@@ -130,7 +131,7 @@ export default function SkippDetailPage() {
               href={restaurantPlayStore}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white hover:bg-cream-200 text-charcoal border border-charcoal/20 hover:border-charcoal text-xs uppercase tracking-wider font-semibold transition-all hover:scale-[1.01] shadow-soft-sm"
+              className="flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white hover:bg-cream-100 text-charcoal border border-charcoal/20 hover:border-charcoal text-xs uppercase tracking-wider font-semibold transition-all hover:scale-[1.01] shadow-soft-xs min-h-[44px]"
             >
               <Store className="w-5 h-5 text-charcoal" />
               <div className="text-left">
@@ -145,32 +146,32 @@ export default function SkippDetailPage() {
         {/* System Architecture Overview */}
         <div className="my-12 space-y-6">
           <div className="flex items-center gap-2">
-            <Server className="w-5 h-5 text-charcoal" />
+            <Server className="w-5 h-5 text-coral" />
             <h2 className="text-2xl font-bold text-charcoal tracking-tight uppercase">
               System Architecture &amp; Core Mechanics
             </h2>
           </div>
 
-          <div className="p-6 sm:p-8 rounded-2xl bg-white border border-pale space-y-4">
-            <p className="text-sm sm:text-base text-muted leading-relaxed font-normal">
+          <div className="p-6 sm:p-8 rounded-card bg-white border border-pale space-y-4 shadow-soft-xs">
+            <p className="text-sm sm:text-base text-charcoal/75 leading-relaxed font-normal">
               Skipp was engineered to streamline high-volume pre-ordering and in-person pickup workflows. Rather than standard delivery logistics, the ecosystem is built around synchronizing customer arrival times with live kitchen preparation density.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4 pt-3">
-              <div className="p-4 rounded-xl bg-cream border border-pale">
-                <h3 className="text-sm font-bold text-charcoal uppercase tracking-wider mb-1">
+              <div className="p-5 rounded-2xl bg-cream-50 border border-pale">
+                <h3 className="text-sm font-bold text-charcoal uppercase tracking-wider mb-1.5">
                   Customer Mobile Client Flow
                 </h3>
-                <p className="text-xs text-muted leading-relaxed font-normal">
+                <p className="text-xs text-charcoal/70 leading-relaxed font-normal">
                   Browse real-time menus, place customized pre-orders, execute secure checkout via Razorpay, and track order stages with dynamic countdown timers and map navigation.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-cream border border-pale">
-                <h3 className="text-sm font-bold text-charcoal uppercase tracking-wider mb-1">
+              <div className="p-5 rounded-2xl bg-cream-50 border border-pale">
+                <h3 className="text-sm font-bold text-charcoal uppercase tracking-wider mb-1.5">
                   Restaurant Management Terminal
                 </h3>
-                <p className="text-xs text-muted leading-relaxed font-normal">
+                <p className="text-xs text-charcoal/70 leading-relaxed font-normal">
                   Audio-visual kitchen order board where kitchen personnel accept tickets, modify preparation stages, adjust menu availability, and manage table reservations in real time.
                 </p>
               </div>
@@ -181,7 +182,7 @@ export default function SkippDetailPage() {
         {/* Technical Highlights Grid */}
         <div className="my-12 space-y-6">
           <div className="flex items-center gap-2">
-            <Layers className="w-5 h-5 text-charcoal" />
+            <Layers className="w-5 h-5 text-coral" />
             <h2 className="text-2xl font-bold text-charcoal tracking-tight uppercase">
               Engineering Implementation Details
             </h2>
@@ -193,17 +194,17 @@ export default function SkippDetailPage() {
               return (
                 <div
                   key={i}
-                  className="p-6 rounded-2xl bg-white border border-pale space-y-2.5"
+                  className="portfolio-card p-6 space-y-2.5 h-full"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-lg bg-cream border border-pale text-charcoal">
+                    <div className="p-2.5 rounded-xl bg-cream-100 border border-pale text-coral">
                       <Icon className="w-5 h-5" />
                     </div>
                     <h3 className="text-base font-bold text-charcoal leading-tight">
                       {feat.title}
                     </h3>
                   </div>
-                  <p className="text-xs sm:text-sm text-muted leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-charcoal/70 leading-relaxed font-normal">
                     {feat.desc}
                   </p>
                 </div>
@@ -213,7 +214,7 @@ export default function SkippDetailPage() {
         </div>
 
         {/* Complete Tech Stack Table */}
-        <div className="my-12 p-8 rounded-2xl bg-white border border-pale space-y-4">
+        <div className="my-12 p-8 rounded-card bg-white border border-pale space-y-4 shadow-soft-xs">
           <h2 className="text-xl font-bold text-charcoal tracking-tight uppercase">
             Comprehensive Technology Stack
           </h2>
@@ -221,7 +222,7 @@ export default function SkippDetailPage() {
             {technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1.5 rounded-lg bg-cream border border-pale text-xs font-mono text-charcoal"
+                className="tech-pill font-mono"
               >
                 {tech}
               </span>
@@ -232,15 +233,15 @@ export default function SkippDetailPage() {
         {/* Bottom CTA to return */}
         <div className="pt-8 border-t border-pale flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link
-            href="/#work"
-            className="text-xs font-semibold uppercase tracking-wider text-charcoal hover:text-coral transition-colors"
+            href="/#projects"
+            className="text-xs font-semibold uppercase tracking-wider text-charcoal hover:text-coral transition-colors min-h-[44px] inline-flex items-center"
           >
             ← Return to All Projects on Portfolio
           </Link>
           <a
             href="/resume.pdf"
             download="Allanagari_Renuka_Resume.pdf"
-            className="px-5 py-2.5 rounded-xl bg-charcoal hover:bg-black text-white text-xs font-mono uppercase tracking-wider font-semibold transition-all"
+            className="btn-primary min-h-[44px]"
           >
             Download Allanagari Renuka Resume (PDF)
           </a>
