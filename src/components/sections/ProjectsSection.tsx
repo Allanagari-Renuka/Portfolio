@@ -80,9 +80,7 @@ export default function ProjectsSection() {
           </div>
         </motion.div>
 
-        {/* ========================================================================= */}
         {/* PART 1: THE THREE MAIN MAJOR PROJECTS (Flagship 3D Cards) */}
-        {/* ========================================================================= */}
         <div className="mb-16">
           <div className="flex items-center gap-3 mb-6">
             <span className="text-xs font-black uppercase tracking-widest text-charcoal/60">
