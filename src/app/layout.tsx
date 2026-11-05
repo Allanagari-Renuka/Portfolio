@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'Allanagari Renuka Portfolio',
     images: [
       {
-        url: '/passport.jpg',
+        url: 'https://portfolio-x3ud.vercel.app/passport.jpg',
         width: 800,
         height: 800,
         alt: 'Allanagari Renuka Portrait',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: 'Allanagari Renuka — Full Stack Developer & AI Engineer',
     description:
       'Independent Full Stack Developer & AI Engineer building production web, mobile, and AI solutions.',
-    images: ['/passport.jpg'],
+    images: ['https://portfolio-x3ud.vercel.app/passport.jpg'],
   },
   robots: {
     index: true,
@@ -74,8 +74,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
+        {/* Preload and font-display: swap for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
         <link rel="icon" href="/passport.jpg" type="image/jpeg" />
         <script
           type="application/ld+json"
@@ -109,7 +116,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-cream text-charcoal antialiased min-h-screen">
+      <body className="bg-cream text-charcoal font-sans antialiased min-h-screen selection:bg-coral selection:text-white">
         {children}
       </body>
     </html>
