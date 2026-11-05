@@ -318,30 +318,42 @@ export default function ContactSection() {
             </div>
           </motion.div>
 
-          {/* Right Column: Clean, Crisp Professional Portrait (Light theme, solid blazer, NO muddy fog) */}
+          {/* Right Column: Full Professional Portrait (Clean, Neat, No Sliced Edges) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex flex-col items-center justify-end relative pt-8 lg:pt-12"
+            className="lg:col-span-5 flex flex-col items-center justify-center relative pt-8 lg:pt-4"
           >
             {/* Soft Warm Radial Backdrop Aura */}
-            <div className="absolute top-8 w-72 h-72 rounded-full bg-gradient-to-tr from-coral/10 via-peach-100/30 to-transparent blur-3xl pointer-events-none" />
+            <div className="absolute top-8 w-72 h-72 rounded-full bg-gradient-to-tr from-coral/15 via-peach-100/30 to-transparent blur-3xl pointer-events-none" />
 
-            {/* Crisp Portrait Container */}
-            <div className="relative z-10 w-72 sm:w-84 h-[380px] sm:h-[450px] select-none">
-              <Image
-                src="/renuka-cutout.png"
-                alt={`${profile.name} — Full-stack developer & AI engineer`}
-                fill
-                sizes="(max-width: 640px) 288px, 336px"
-                className="object-contain object-bottom filter contrast-[1.02]"
-              />
+            {/* Professional Framed Portrait Card */}
+            <div className="relative z-10 w-72 sm:w-80 lg:w-[340px] h-[390px] sm:h-[450px] lg:h-[470px] rounded-[2.5rem] p-2 bg-white/80 backdrop-blur-xs border-2 border-white shadow-soft-lg select-none">
+              <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-cream-100">
+                <Image
+                  src="/professional-portfolio.png"
+                  alt={`${profile.name} — Full-stack developer & AI engineer`}
+                  fill
+                  sizes="(max-width: 640px) 288px, (max-width: 1024px) 320px, 340px"
+                  className="object-cover object-top filter contrast-[1.02]"
+                />
+              </div>
+
+              {/* Status Pill at Base */}
+              <div className="absolute bottom-5 inset-x-6 py-2 px-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-soft-sm flex items-center justify-between pointer-events-none">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-xs font-black text-charcoal font-sans tracking-tight">
+                    Available for Work
+                  </span>
+                </div>
+                <span className="text-[10px] font-bold text-coral uppercase tracking-wider font-mono">
+                  ✦ Connect
+                </span>
+              </div>
             </div>
-
-            {/* Clean Grounding Line beneath the blazer */}
-            <div className="w-64 sm:w-72 h-px bg-gradient-to-r from-transparent via-pale/80 to-transparent pointer-events-none" />
           </motion.div>
 
         </div>

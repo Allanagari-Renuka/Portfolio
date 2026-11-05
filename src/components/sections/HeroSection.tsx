@@ -223,33 +223,33 @@ export default function HeroSection() {
           </div>
 
           {/* ============================================================== */}
-          {/* Right Column: Clean, Crisp, Professional Portrait Cutout */}
+          {/* Right Column: Full Professional Portrait (Clean, Neat, No Sliced Edges) */}
           {/* Positioned at the top, aligned equally with "Allanagari Renuka" */}
           {/* ============================================================== */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative flex flex-col items-center justify-start lg:pt-12"
+            className="lg:col-span-5 relative flex flex-col items-center justify-start lg:pt-8"
           >
             {/* 3D Perspective Stage Container */}
             <div
-              className="relative w-80 sm:w-96 lg:w-[410px] h-[460px] sm:h-[500px] lg:h-[530px] flex items-start justify-center select-none"
+              className="relative w-72 sm:w-84 lg:w-[350px] flex flex-col items-center select-none"
               style={{ perspective: '1000px' }}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              {/* Soft warm aura centered behind the head/shoulders */}
+              {/* Soft warm aura centered behind the portrait */}
               <div
-                className="absolute top-0 w-72 sm:w-80 h-72 sm:h-80 rounded-full bg-gradient-to-tr from-coral/15 via-peach-100/20 to-transparent blur-3xl pointer-events-none transition-transform duration-300"
+                className="absolute -top-4 w-72 sm:w-80 h-72 sm:h-80 rounded-full bg-gradient-to-tr from-coral/20 via-peach-100/30 to-transparent blur-3xl pointer-events-none transition-transform duration-300"
                 style={{
                   transform: `scale(${isHovered ? 1.05 : 1}) translate3d(${shiftX * 0.3}px, ${shiftY * 0.3}px, 0)`,
                 }}
               />
 
-              {/* Crisp, Professional Cutout Portrait (Solid blazer, top-aligned) */}
+              {/* Professional Framed Portrait Card with 3D Mouse Parallax */}
               <motion.div
-                className="relative z-10 w-72 sm:w-84 lg:w-92 h-[440px] sm:h-[480px] lg:h-[510px] transition-transform duration-150 ease-out cursor-default"
+                className="relative z-10 w-full h-[390px] sm:h-[450px] lg:h-[480px] rounded-[2.5rem] p-2 bg-white/80 backdrop-blur-xs border-2 border-white shadow-soft-lg hover:shadow-soft-xl transition-all duration-300 cursor-default"
                 style={{
                   y: portraitY,
                   transform: `translate3d(${shiftX}px, ${shiftY}px, 0px) rotateY(${tiltY}deg) rotateX(${tiltX}deg) ${
@@ -258,20 +258,34 @@ export default function HeroSection() {
                   transformStyle: 'preserve-3d',
                 }}
               >
-                <Image
-                  src="/renuka-cutout.png"
-                  alt={`${profile.name} — Full-Stack Developer`}
-                  fill
-                  priority
-                  sizes="(max-width: 640px) 288px, (max-width: 1024px) 336px, 368px"
-                  className="object-contain object-top filter contrast-[1.02]"
-                />
-              </motion.div>
+                {/* Full, Clean, Uncut Professional Portrait */}
+                <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-cream-100">
+                  <Image
+                    src="/professional-portfolio.png"
+                    alt={`${profile.name} — Full-Stack Developer`}
+                    fill
+                    priority
+                    sizes="(max-width: 640px) 288px, (max-width: 1024px) 336px, 350px"
+                    className="object-cover object-top filter contrast-[1.02]"
+                  />
+                </div>
 
-              {/* Clean Grounding Line beneath the blazer */}
-              <div
-                className="absolute bottom-4 w-64 sm:w-72 h-px bg-gradient-to-r from-transparent via-pale/80 to-transparent pointer-events-none"
-              />
+                {/* Subtle Floating Glass Badge at Bottom Base */}
+                <div
+                  className="absolute bottom-5 inset-x-6 py-2 px-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-soft-sm flex items-center justify-between pointer-events-none"
+                  style={{ transform: 'translateZ(20px)' }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-black text-charcoal font-sans tracking-tight">
+                      Allanagari Renuka
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-bold text-coral uppercase tracking-wider font-mono">
+                    ✦ Full-Stack
+                  </span>
+                </div>
+              </motion.div>
 
             </div>
 
